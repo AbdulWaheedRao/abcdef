@@ -27,6 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
         screenHeight - kToolbarHeight - MediaQuery.of(context).padding.top;
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text('Login'),
+          centerTitle: true,
+        ),
         resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white38,
         body: Center(

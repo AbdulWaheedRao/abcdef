@@ -7,13 +7,13 @@ class DetailScreen {
   String description;
   String rate;
   String id;
-  DetailScreen({
-    required this.name,
-    required this.image_url,
-    required this.description,
-    required this.rate,
-    required this.id,
-  });
+  DetailScreen(
+      {required this.name,
+      required this.image_url,
+      required this.description,
+      required this.rate,
+      required this.id,
+      data});
 
   DetailScreen copyWith({
     String? name,

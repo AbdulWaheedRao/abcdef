@@ -5,28 +5,37 @@ import 'package:flutter_application_project/model/detail.dart';
 import 'profile.dart';
 
 class DetailedHotelScreen extends StatefulWidget {
-  DetailedHotelScreen({
-    super.key,
-    required this.id,
-  });
+  DetailedHotelScreen(
+      {super.key, required this.firstId, required this.secondId});
 
-  String id;
+  String firstId;
+  String secondId;
   @override
   State<DetailedHotelScreen> createState() => _DetailedHotelScreenState();
 }
 
 class _DetailedHotelScreenState extends State<DetailedHotelScreen> {
   FirebaseAuth auth = FirebaseAuth.instance;
+  late String firstId;
+  late String secondId;
+  @override
+  void initState() {
+    super.initState();
+    firstId = widget.firstId;
+    secondId = widget.secondId;
+  }
 
   @override
   Widget build(BuildContext context) {
     final fireStore = FirebaseFirestore.instance
         .collection("users")
-        .doc(widget.id.trim().replaceAll(' ', ''))
+        .doc(firstId.trim())
         .collection("hotels")
-        .doc(widget.id.trim().replaceAll(' ', ''))
+        .doc(secondId.trim())
         .collection('details')
         .snapshots();
+    print('?????$firstId');
+    print('?????$secondId');
     screenSize = MediaQuery.of(context).size;
     screenWidth = screenSize.width;
     screenHeight = screenSize.height;
@@ -52,36 +61,78 @@ class _DetailedHotelScreenState extends State<DetailedHotelScreen> {
                         DetailScreen hotel = DetailScreen.fromMap(
                             snapshot.data!.docs[index].data());
 
-                        return Expanded(
-                          child: Column(children: [
-                            SizedBox(
-                                width: screenWidth * 0.8,
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                  width: screenWidth * 0.8,
+                                  height: clientHeight * 0.3,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Center(
+                                      child: Image.network(
+                                        hotel.image_url,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )),
+                              SizedBox(
+                                  width: screenWidth * 0.6,
+                                  height: clientHeight * 0.1,
+                                  child: Center(
+                                    child: Text(
+                                      hotel.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )),
+                              SizedBox(
+                                  width: screenWidth * 0.65,
+                                  height: clientHeight * 0.12,
+                                  child: Center(
+                                    child: Text(
+                                      hotel.description,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  )),
+                              SizedBox(
+                                width: screenWidth * 0.2,
                                 height: clientHeight * 0.3,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.network(
-                                    hotel.image_url,
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
-                            SizedBox(
-                                width: screenWidth * 0.6,
-                                height: clientHeight * 0.12,
-                                child: Text(
-                                  hotel.name,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                )),
-                            SizedBox(
-                                width: screenWidth * 0.6,
-                                height: clientHeight * 0.12,
-                                child: Text(
-                                  hotel.description,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                )),
-                          ]),
-                        );
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        const Text(
+                                          'Total Price',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(hotel.rate,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold))
+                                      ]),
+                                  SizedBox(
+                                    width: screenWidth * 0.35,
+                                    height: clientHeight * 0.06,
+                                    child: ElevatedButton(
+                                        onPressed: () =>
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                              content:
+                                                  Text('Book Successfully'),
+                                            )),
+                                        child: const Text('BookNow')),
+                                  )
+                                ],
+                              )
+                            ]);
                       },
                     );
                   } else {

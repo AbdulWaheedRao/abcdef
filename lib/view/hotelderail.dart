@@ -19,9 +19,10 @@ class _ShanghaiHotelScreenState extends State<ShanghaiHotelScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String id = widget.id.trim();
     final fireStore = FirebaseFirestore.instance
         .collection("users")
-        .doc(widget.id.trim())
+        .doc(id)
         .collection("hotels");
     screenSize = MediaQuery.of(context).size;
     screenWidth = screenSize.width;
@@ -65,8 +66,8 @@ class _ShanghaiHotelScreenState extends State<ShanghaiHotelScreen> {
                           child: InkWell(
                             onTap: () =>
                                 Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailedHotelScreen(id: hotel.id),
+                              builder: (context) => DetailedHotelScreen(
+                                  firstId: id, secondId: hotel.id),
                             )),
                             child: Image.network(
                               hotel.image_url,
