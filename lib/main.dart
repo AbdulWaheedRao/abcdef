@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_application_project/controller/routes.dart';
 
 import 'view/dashboadscreen.dart';
 import 'view/homescreen.dart';
@@ -32,19 +33,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: SplashScreen.pageName,
+      onGenerateRoute: onGenerateRoute,
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const DashboardScreen(),
+      // home: ,
     );
   }
 }
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
+  static const pageName = "/SplashScreen";
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -65,16 +69,18 @@ class _SplashScreenState extends State<SplashScreen> {
       });
     } else {
       Timer(const Duration(seconds: 7), () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const HomeScreen(),
-        ));
+        Navigator.of(context).pushReplacementNamed(HomeScreen.pageName);
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+        //   builder: (context) => const HomeScreen(),
+        // ));
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
+      backgroundColor: Colors.white38,
       body: Center(child: Text('Hotel')),
     );
   }

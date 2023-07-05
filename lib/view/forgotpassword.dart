@@ -4,6 +4,7 @@ import 'package:flutter_application_project/view/profile.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
+  static const pageName = "/ForgotScreen";
 
   @override
   State<ForgotPassword> createState() => _ForgotPasswordState();
@@ -68,7 +69,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     )))
                                 .onError((error, stackTrace) =>
                                     ScaffoldMessenger.of(context)
-                                        .showSnackBar(SnackBar(
+                                        .showSnackBar(const SnackBar(
                                       content: Text('Plese enter the email'),
                                     )));
                             globlekey.currentState!.validate();

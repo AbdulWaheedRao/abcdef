@@ -8,6 +8,7 @@ late double screenWidth, screenHeight, clientHeight;
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+  static const pageName = "/ProfileScreen";
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -31,114 +32,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Expanded(
                       flex: 5,
-                      child: Container(
-                        child: LayoutBuilder(
-                          builder: (context, boxConstraint) => Image.asset(
-                            'assets/images/luggage.png',
-                            height: boxConstraint.maxHeight * 0.5,
-                            width: boxConstraint.maxWidth * 0.7,
-                          ),
+                      child: LayoutBuilder(
+                        builder: (context, boxConstraint) => Image.asset(
+                          'assets/images/luggage.png',
+                          height: boxConstraint.maxHeight * 0.5,
+                          width: boxConstraint.maxWidth * 0.7,
                         ),
                       )),
                   Expanded(
                       flex: 5,
-                      child: Container(
-                        child: LayoutBuilder(
-                          builder: (context, boxConstraint) => Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.1,
-                                  width: boxConstraint.maxWidth * 0.5,
-                                  child: FittedBox(
-                                      child: Text(
-                                    'Find best deals',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )),
-                                ),
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.05,
-                                  width: boxConstraint.maxWidth * 0.3,
-                                ),
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.15,
-                                  width: boxConstraint.maxWidth * 0.6,
-                                  child: FittedBox(
-                                      child: Text(
-                                    'Find deal for any season from cosy\n country homes to city plan',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  )),
-                                )
-                              ]),
-                        ),
+                      child: LayoutBuilder(
+                        builder: (context, boxConstraint) => Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.1,
+                                width: boxConstraint.maxWidth * 0.5,
+                                child: const FittedBox(
+                                    child: Text(
+                                  'Find best deals',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
+                              ),
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.05,
+                                width: boxConstraint.maxWidth * 0.3,
+                              ),
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.15,
+                                width: boxConstraint.maxWidth * 0.6,
+                                child: const FittedBox(
+                                    child: Text(
+                                  'Find deal for any season from cosy\n country homes to city plan',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                )),
+                              )
+                            ]),
                       )),
                   Expanded(
                       flex: 5,
-                      child: Container(
-                        child: LayoutBuilder(
-                          builder: (context, boxConstraint) => Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.2,
-                                  width: boxConstraint.maxWidth * 0.7,
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)))),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const LoginScreen(),
-                                            ));
-                                      },
-                                      child: Text(
-                                        'Login',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                ),
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.1,
-                                  width: boxConstraint.maxWidth * 0.3,
-                                ),
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.2,
-                                  width: boxConstraint.maxWidth * 0.7,
-                                  child: ElevatedButton(
-                                      style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          25)))),
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CreateScreen(),
-                                            ));
-                                      },
-                                      child: Text(
-                                        'Create account',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold),
-                                      )),
-                                ),
-                                SizedBox(
-                                  height: boxConstraint.maxHeight * 0.05,
-                                  width: boxConstraint.maxWidth * 0.1,
-                                )
-                              ]),
-                        ),
+                      child: LayoutBuilder(
+                        builder: (context, boxConstraint) => Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.2,
+                                width: boxConstraint.maxWidth * 0.7,
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        25)))),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed(LoginScreen.pageName);
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           const LoginScreen(),
+                                      //     ));
+                                    },
+                                    child: const Text(
+                                      'Login',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ),
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.1,
+                                width: boxConstraint.maxWidth * 0.3,
+                              ),
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.2,
+                                width: boxConstraint.maxWidth * 0.7,
+                                child: ElevatedButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        25)))),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed(CreateScreen.pageName);
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //       builder: (context) =>
+                                      //           const CreateScreen(),
+                                      //     ));
+                                    },
+                                    child: const Text(
+                                      'Create account',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ),
+                              SizedBox(
+                                height: boxConstraint.maxHeight * 0.05,
+                                width: boxConstraint.maxWidth * 0.1,
+                              )
+                            ]),
                       )),
                 ],
               ),

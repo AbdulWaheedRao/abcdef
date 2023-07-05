@@ -7,6 +7,7 @@ import 'profile.dart';
 class DetailedHotelScreen extends StatefulWidget {
   DetailedHotelScreen(
       {super.key, required this.firstId, required this.secondId});
+  static const pageName = "/DetailScreen";
 
   String firstId;
   String secondId;
@@ -47,13 +48,13 @@ class _DetailedHotelScreenState extends State<DetailedHotelScreen> {
             appBar: AppBar(
               centerTitle: true,
               backgroundColor: Colors.white38.withOpacity(0.5),
-              title: const Text('ShanghaiHotels'),
+              title: const Text('HotelBook'),
             ),
             body: StreamBuilder(
                 stream: fireStore,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.data!.docs.isNotEmpty) {
                     return ListView.builder(
                       itemCount: snapshot.data!.docs.length,

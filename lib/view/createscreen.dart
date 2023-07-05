@@ -1,22 +1,33 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_project/view/loginscreen.dart';
 import 'package:flutter_application_project/view/profile.dart';
 
 import 'dashboadscreen.dart';
 
 class CreateScreen extends StatefulWidget {
   const CreateScreen({super.key});
+  static const pageName = "/CreateScreen";
 
   @override
   State<CreateScreen> createState() => _CreateScreenState();
 }
 
 class _CreateScreenState extends State<CreateScreen> {
+  bool _obscureText = true;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> globlekey = GlobalKey<FormState>();
   GlobalKey<FormState> globlekey1 = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     screenSize = MediaQuery.of(context).size;
@@ -48,14 +59,16 @@ class _CreateScreenState extends State<CreateScreen> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 13)),
                       SizedBox(
-                        width: screenWidth * 0.7,
+                        width: screenWidth * 0.8,
                         height: clientHeight * 0.1,
                         child: Form(
                             key: globlekey,
                             child: TextFormField(
                               controller: emailController,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   hintText: 'Enter the Address',
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
                                   labelText: 'Address'),
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -69,7 +82,7 @@ class _CreateScreenState extends State<CreateScreen> {
                             )),
                       ),
                       SizedBox(
-                        width: screenWidth * 0.7,
+                        width: screenWidth * 0.8,
                         height: clientHeight * 0.1,
                         child: Form(
                             key: globlekey1,
@@ -98,10 +111,11 @@ class _CreateScreenState extends State<CreateScreen> {
                                     email: emailController.text,
                                     password: passwordController.text,
                                   );
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DashboardScreen(),
-                                  ));
+                                  Navigator.of(context)
+                                      .pushNamed(LoginScreen.pageName);
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //   builder: (context) => const LoginScreen(),
+                                  // ));
                                 } on FirebaseAuthException catch (e) {
                                   if (e.code == 'weak-password') {
                                     ScaffoldMessenger.of(context)

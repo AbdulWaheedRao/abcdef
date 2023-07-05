@@ -7,16 +7,26 @@ import 'profile.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+  static const pageName = "/LoginScreen";
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscureText = true;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> globlekey = GlobalKey<FormState>();
   GlobalKey<FormState> globlekey1 = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +38,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Login'),
+          automaticallyImplyLeading: false,
+          title: const Text('Login'),
           centerTitle: true,
         ),
         resizeToAvoidBottomInset: false,
@@ -38,127 +49,129 @@ class _LoginScreenState extends State<LoginScreen> {
             const Expanded(flex: 1, child: SizedBox()),
             Expanded(
                 flex: 6,
-                child: Container(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/images/flutter.png',
-                              width: screenWidth * 0.1,
-                              height: screenHeight * 0.1,
-                            ),
-                            SizedBox(
-                              width: screenWidth * 0.15,
-                              height: screenHeight * 0.1,
-                              child: const FittedBox(
-                                  child: Text(
-                                'Hotel',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              )),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.15,
-                          child: Form(
-                              key: globlekey,
-                              child: TextFormField(
-                                controller: emailController,
-                                decoration: const InputDecoration(
-                                    hintText: 'Enter the Address',
-                                    labelText: 'Address'),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Please enter the adress';
-                                  } else if (value.isValidAlpha()) {
-                                    return null;
-                                  } else {
-                                    return 'invalid';
-                                  }
-                                },
-                              )),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.8,
-                          height: screenHeight * 0.15,
-                          child: Form(
-                              key: globlekey1,
-                              child: TextFormField(
-                                controller: passwordController,
-                                decoration: InputDecoration(
-                                    hintText: 'Enter the Password',
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    labelText: 'Password'),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Enter the password';
-                                  } else {}
-                                },
-                              )),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.3,
-                          height: screenHeight * 0.07,
-                          child: InkWell(
-                            onTap: () =>
-                                Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => const ForgotPassword(),
-                            )),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/flutter.png',
+                            width: screenWidth * 0.1,
+                            height: screenHeight * 0.1,
+                          ),
+                          SizedBox(
+                            width: screenWidth * 0.15,
+                            height: screenHeight * 0.1,
                             child: const FittedBox(
                                 child: Text(
-                              'forgot password',
+                              'Hotel',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             )),
-                          ),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.5,
-                          height: screenHeight * 0.07,
-                          child: ElevatedButton(
-                              onPressed: () async {
-                                try {
-                                  final credential = await FirebaseAuth.instance
-                                      .signInWithEmailAndPassword(
-                                          email: emailController.text,
-                                          password: passwordController.text);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const DashboardScreen(),
-                                  ));
-                                } on FirebaseAuthException catch (e) {
-                                  if (e.code == 'user-not-found') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text('No user found for that email.'),
-                                    ));
-                                  } else if (e.code == 'wrong-password') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          'Wrong password provided for that user.'),
-                                    ));
-                                  }
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.8,
+                        height: screenHeight * 0.15,
+                        child: Form(
+                            key: globlekey,
+                            child: TextFormField(
+                              controller: emailController,
+                              decoration: InputDecoration(
+                                  hintText: 'Enter the Address',
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  labelText: 'Address'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter the adress';
+                                } else if (value.isValidAlpha()) {
+                                  return null;
+                                } else {
+                                  return 'invalid';
                                 }
-
-                                globlekey.currentState!.validate();
-                                globlekey1.currentState!.validate();
                               },
-                              child: const Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )),
-                        )
-                      ]),
-                )),
+                            )),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.8,
+                        height: screenHeight * 0.15,
+                        child: Form(
+                            key: globlekey1,
+                            child: TextFormField(
+                              obscureText: _obscureText,
+                              controller: passwordController,
+                              decoration: InputDecoration(
+                                  hintText: 'Enter the Password',
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  labelText: 'Password'),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Enter the password';
+                                } else {}
+                              },
+                            )),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.3,
+                        height: screenHeight * 0.07,
+                        child: InkWell(
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(ForgotPassword.pageName),
+                          //     Navigator.of(context).push(MaterialPageRoute(
+                          //   builder: (context) => const ForgotPassword(),
+                          // )),
+                          child: const FittedBox(
+                              child: Text(
+                            'forgot password',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          )),
+                        ),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.5,
+                        height: screenHeight * 0.07,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+                                Navigator.of(context)
+                                    .pushNamed(DashboardScreen.pageName);
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //   builder: (context) => const DashboardScreen(),
+                                // ));
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content:
+                                        Text('No user found for that email.'),
+                                  ));
+                                } else if (e.code == 'wrong-password') {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        'Wrong password provided for that user.'),
+                                  ));
+                                }
+                              }
+
+                              globlekey.currentState!.validate();
+                              globlekey1.currentState!.validate();
+                            },
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                      )
+                    ])),
             Expanded(
                 flex: 2,
                 child: Column(
@@ -170,10 +183,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: FittedBox(
                               child: InkWell(
                                   onTap: () => Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) =>
-                                            const CreateScreen(),
-                                      )),
+                                      .pushNamed(CreateScreen.pageName),
+                                  // Navigator.of(context)
+                                  //         .push(MaterialPageRoute(
+                                  //       builder: (context) =>
+                                  //           const CreateScreen(),
+                                  //     )),
                                   child:
                                       const Text('New user?Create Account')))),
                     ]))
