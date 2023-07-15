@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_project/controller/routes.dart';
+import 'package:flutter_application_project/view/profile.dart';
 
 import 'view/dashboadscreen.dart';
 import 'view/homescreen.dart';
@@ -79,9 +80,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white38,
-      body: Center(child: Text('Hotel')),
-    );
+    screenSize = MediaQuery.of(context).size;
+    screenWidth = screenSize.width;
+    screenHeight = screenSize.height;
+    clientHeight =
+        screenHeight - kToolbarHeight - MediaQuery.of(context).padding.top;
+    return Scaffold(
+        body: Center(
+      child: Container(
+        width: screenWidth,
+        height: screenHeight,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/splash.jpg"),
+                fit: BoxFit.fill)),
+      ),
+    ));
   }
 }

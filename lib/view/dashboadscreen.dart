@@ -5,6 +5,7 @@ import 'package:flutter_application_project/view/hotelderail.dart';
 import '../model/hotel.dart';
 import 'loginscreen.dart';
 import 'profile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -29,64 +30,76 @@ class _DashboardScreenState extends State<DashboardScreen> {
         screenHeight - kToolbarHeight - MediaQuery.of(context).padding.top;
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white38,
+        // backgroundColor: Colors.white38,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.white38.withOpacity(0.5),
           title: const Text('Dashboard'),
         ),
-        body: StreamBuilder(
-          stream: fireStore,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasData) {
-              return Center(
-                child: GridView.builder(
-                  itemCount: snapshot.data!.docs.length,
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 300,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, index) {
-                    Hotel hotel =
-                        Hotel.fromMap(snapshot.data!.docs[index].data());
-                    // print('hotelllllllllllllll:$hotel');
-                    return Center(
-                      child: ListTile(
-                        title: SizedBox(
-                            width: screenWidth * 0.5,
-                            height: clientHeight * 0.2,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: InkWell(
-                                onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            HotelScreen(id: hotel.id))),
-                                child: Image.network(
-                                  hotel.image_url,
-                                  fit: BoxFit.cover,
+        body: Container(
+          width: screenWidth,
+          height: screenHeight,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/stars.jpg"))),
+          child: StreamBuilder(
+            stream: fireStore,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasData) {
+                return Center(
+                  child: GridView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 300,
+                      mainAxisSpacing: 10,
+                    ),
+                    itemBuilder: (context, index) {
+                      Hotel hotel =
+                          Hotel.fromMap(snapshot.data!.docs[index].data());
+                      // print('hotelllllllllllllll:$hotel');
+                      return Center(
+                        child: ListTile(
+                          title: SizedBox(
+                              width: screenWidth * 0.5,
+                              height: clientHeight * 0.2,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: InkWell(
+                                  onTap: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HotelScreen(id: hotel.id))),
+                                  child: Image.network(
+                                    hotel.image_url,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                            )),
-                        subtitle: SizedBox(
-                            width: screenWidth * 0.5,
-                            height: clientHeight * 0.1,
-                            child: Text(
-                              hotel.name,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            )),
-                      ),
-                    );
-                  },
-                ),
-              );
-            } else {
-              return const Text('Something went wrong');
-            }
-          },
+                              )),
+                          subtitle: SizedBox(
+                              width: screenWidth * 0.5,
+                              height: clientHeight * 0.075,
+                              child: Center(
+                                child: Text(
+                                  hotel.name,
+                                  style: GoogleFonts.fasthand(
+                                      color: Colors.white,
+                                      fontSize: screenWidth * 0.045,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              )),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return const Text('Something went wrong');
+              }
+            },
+          ),
         ),
         drawer: Drawer(
           child: Center(
