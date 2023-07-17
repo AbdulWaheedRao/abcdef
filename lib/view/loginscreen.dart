@@ -45,11 +45,10 @@ class _LoginScreenState extends State<LoginScreen> {
           centerTitle: true,
         ),
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white38,
         body: Container(
           width: screenWidth,
           height: screenHeight,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/images/login.jpg"),
                   fit: BoxFit.fill)),
@@ -96,36 +95,38 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Form(
                               key: globlekey,
                               child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
                                 cursorColor: Colors.white,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   decorationColor: Colors.white,
                                 ),
                                 controller: emailController,
                                 decoration: InputDecoration(
                                     prefixIconColor: Colors.white,
-                                    labelStyle: TextStyle(color: Colors.white),
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
                                     hintText: 'Enter the Address',
                                     hoverColor: Colors.white,
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: const OutlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.white)),
                                     fillColor: Colors.white,
-                                    border: OutlineInputBorder(
+                                    border: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),
-                                    prefixIcon: Icon(Icons.home),
+                                    prefixIcon: const Icon(Icons.home),
                                     focusColor: Colors.white,
                                     iconColor: Colors.white,
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: Colors.white,
                                       decorationColor: Colors.white,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(10),
                                       borderSide:
-                                          BorderSide(color: Colors.white),
+                                          const BorderSide(color: Colors.white),
                                     ),
                                     labelText: 'Address'),
                                 validator: (value) {
@@ -145,8 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Form(
                               key: globlekey1,
                               child: TextFormField(
+                                keyboardType: TextInputType.name,
                                 cursorColor: Colors.white,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   decorationColor: Colors.white,
                                 ),
@@ -154,28 +156,30 @@ class _LoginScreenState extends State<LoginScreen> {
                                 controller: passwordController,
                                 decoration: InputDecoration(
                                     hintText: 'Enter the Password',
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),
                                     prefixIconColor: Colors.white,
-                                    labelStyle: TextStyle(color: Colors.white),
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
                                     hoverColor: Colors.white,
                                     fillColor: Colors.white,
-                                    border: OutlineInputBorder(
+                                    border: const OutlineInputBorder(
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),
-                                    prefixIcon: Icon(Icons.remove_red_eye),
+                                    prefixIcon:
+                                        const Icon(Icons.remove_red_eye),
                                     focusColor: Colors.white,
                                     iconColor: Colors.white,
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: Colors.white,
                                       decorationColor: Colors.white,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                           color: Colors.white,
                                         )),
                                     labelText: 'Password'),

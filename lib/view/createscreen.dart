@@ -39,14 +39,13 @@ class _CreateScreenState extends State<CreateScreen> {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white38,
         appBar: AppBar(
           title: const Text('CreateAccount'),
         ),
         body: Container(
           width: screenWidth,
           height: screenHeight,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/images/create.jpg"),
                   fit: BoxFit.fill)),
@@ -72,30 +71,32 @@ class _CreateScreenState extends State<CreateScreen> {
                           child: Form(
                               key: globlekey,
                               child: TextFormField(
+                                keyboardType: TextInputType.emailAddress,
                                 controller: emailController,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   decorationColor: Colors.white,
                                 ),
                                 decoration: InputDecoration(
                                     prefixIconColor: Colors.white,
-                                    labelStyle: TextStyle(color: Colors.white),
+                                    labelStyle:
+                                        const TextStyle(color: Colors.white),
                                     hintText: 'Enter the Address',
                                     hoverColor: Colors.white,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(10),
-                                        borderSide:
-                                            BorderSide(color: Colors.white)),
+                                        borderSide: const BorderSide(
+                                            color: Colors.white)),
                                     fillColor: Colors.white,
                                     border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
+                                        borderSide: const BorderSide(
+                                            color: Colors.white),
                                         borderRadius:
                                             BorderRadius.circular(10)),
-                                    prefixIcon: Icon(Icons.home),
+                                    prefixIcon: const Icon(Icons.home),
                                     focusColor: Colors.white,
                                     iconColor: Colors.white,
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                       color: Colors.white,
                                       decorationColor: Colors.white,
                                     ),
@@ -117,15 +118,16 @@ class _CreateScreenState extends State<CreateScreen> {
                           child: Form(
                               key: globlekey1,
                               child: TextFormField(
+                                keyboardType: TextInputType.name,
                                 controller: passwordController,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   decorationColor: Colors.white,
                                 ),
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
+                                        borderSide: const BorderSide(
+                                            color: Colors.white),
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     hintText: 'Enter the Password',
